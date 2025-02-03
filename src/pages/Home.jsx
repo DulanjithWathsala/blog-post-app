@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchPosts } from "../services/api.js";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -34,11 +35,14 @@ export default function Home() {
         <div className="mt-6 grid grid-cols-2 gap-5">
           {posts.map((post) => (
             <div key={post.id} className="rounded p-4 mb-4 bg-white shadow">
-              <h3>
-                <span className="text-blue-600">title:</span> {post.title}
+              <h3 className="text-xl mb-2.5">
+                <span className="text-green-600">title:</span> {post.title}
               </h3>
               <p>
-                <span className="text-blue-600">description:</span> {post.body}
+                <span className="text-green-600">description:</span> {post.body}
+              </p>
+              <p className="mt-2.5 text-blue-500 hover:text-blue-700 underline">
+                <Link to={`/post/${post.id}`}>Read more</Link>
               </p>
             </div>
           ))}
