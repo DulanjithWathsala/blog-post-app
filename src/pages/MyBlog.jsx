@@ -40,7 +40,6 @@ export default function MyBlog() {
       <hr className="my-5" />
 
       <h1 className="text-2xl font-bold mb-4 text-center">Blog Posts</h1>
-      <p className="text-center">Welcome to the home page!</p>
       {loading ? (
         <p>Loading posts...</p>
       ) : error ? (
@@ -48,7 +47,7 @@ export default function MyBlog() {
       ) : posts.length > 0 ? (
         <div className="mt-6 grid grid-cols-2 gap-5">
           {posts.map((post) => (
-            <div key={post.id} className="rounded p-4 mb-4 bg-white shadow">
+            <div key={post.id} className="rounded p-4 mb-4 bg-white shadow-2xl">
               <h3 className="text-xl mb-2.5">
                 <span className="text-green-600">title:</span> {post.title}
               </h3>
