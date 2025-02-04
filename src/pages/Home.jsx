@@ -1,69 +1,21 @@
-import { useEffect, useState } from "react";
-import { fetchPosts, createPost } from "../services/api.js";
 import { Link } from "react-router-dom";
-import CreatePost from "./CreatePost.jsx";
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
-  const [loading, isLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const getPosts = async () => {
-      try {
-        const data = await fetchPosts();
-        setPosts(data);
-      } catch (error) {
-        console.log(error);
-        setError("Failed to fetch posts. Please try again later.");
-      } finally {
-        isLoading(false);
-      }
-    };
-
-    getPosts();
-  }, []);
-
-  const handleCreatePost = async (newPost) => {
-    const createdPost = await createPost(newPost);
-    console.log(createdPost);
-
-    if (createdPost) {
-      setPosts((prevState) => [createdPost, ...prevState]);
-    }
-  };
-
   return (
-    <div className="container mx-auto p-4">
-      <CreatePost onCreatePost={handleCreatePost} />
-
-      <hr className="my-5" />
-
-      <h1 className="text-2xl font-bold mb-4 text-center">Blog Posts</h1>
-      <p className="text-center">Welcome to the home page!</p>
-      {loading ? (
-        <p>Loading posts...</p>
-      ) : error ? (
-        <p className="text-red-500">{error}</p>
-      ) : posts.length > 0 ? (
-        <div className="mt-6 grid grid-cols-2 gap-5">
-          {posts.map((post) => (
-            <div key={post.id} className="rounded p-4 mb-4 bg-white shadow">
-              <h3 className="text-xl mb-2.5">
-                <span className="text-green-600">title:</span> {post.title}
-              </h3>
-              <p>
-                <span className="text-green-600">description:</span> {post.body}
-              </p>
-              <p className="mt-2.5 text-blue-500 hover:text-blue-700 underline">
-                <Link to={`/post/${post.id}`}>Read more</Link>
-              </p>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>No posts found!</p>
-      )}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6">
+      <div className="bg-white text-gray-900 p-8 rounded-2xl shadow-xl max-w-lg text-center">
+        <h1 className="text-3xl font-bold mb-4">🚀 Welcome to My Blog!</h1>
+        <p className="text-lg mb-4">
+          Discover amazing articles, insights, and ideas. Dive into stories that
+          inspire and inform.
+        </p>
+        <Link
+          to="/my-blog"
+          className="inline-block mt-4 px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
+        >
+          🏠 Go to Blog
+        </Link>
+      </div>
     </div>
   );
 }
