@@ -7,11 +7,8 @@ export default function Navbar() {
         <Link to="/" className="hover:text-gray-200">
           Home
         </Link>
-        <Link to="/" className="hover:text-gray-200">
+        <Link to="/about-us" className="hover:text-gray-200">
           My Blog
-        </Link>
-        <Link to="/create" className="hover:text-gray-200">
-          Create post
         </Link>
       </div>
     </nav>

@@ -21,3 +21,13 @@ export const fetchPostById = async (id) => {
         return null;
     }
 }
+
+export const createPost = async (post) => {
+    try {
+        const response = await axios.post(API_URL, post);
+        return response.data;
+    } catch (error) {
+        console.error("Error while creating a post: ", error);
+        return null;
+    }
+}

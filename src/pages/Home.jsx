@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { fetchPosts } from "../services/api.js";
+import { fetchPosts, createPost } from "../services/api.js";
 import { Link } from "react-router-dom";
+import CreatePost from "./CreatePost.jsx";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -23,8 +24,21 @@ export default function Home() {
     getPosts();
   }, []);
 
+  const handleCreatePost = async (newPost) => {
+    const createdPost = await createPost(newPost);
+    console.log(createdPost);
+
+    if (createdPost) {
+      setPosts((prevState) => [createdPost, ...prevState]);
+    }
+  };
+
   return (
     <div className="container mx-auto p-4">
+      <CreatePost onCreatePost={handleCreatePost} />
+
+      <hr className="my-5" />
+
       <h1 className="text-2xl font-bold mb-4 text-center">Blog Posts</h1>
       <p className="text-center">Welcome to the home page!</p>
       {loading ? (
@@ -53,20 +67,3 @@ export default function Home() {
     </div>
   );
 }
-
-// {posts.length > 0 ? (
-//   <div className="mt-6 grid grid-cols-2 gap-5">
-//     {posts.map((post) => (
-//       <div key={post.id} className="rounded p-4 mb-4 bg-white shadow">
-//         <h3>
-//           <span className="text-blue-600">title:</span> {post.title}
-//         </h3>
-//         <p>
-//           <span className="text-blue-600">description:</span> {post.body}
-//         </p>
-//       </div>
-//     ))}
-//   </div>
-// ) : (
-//   <p>Loading posts...</p>
-// )}
